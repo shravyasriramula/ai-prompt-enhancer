@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>AI Prompt Enhancer</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>AI Prompt Enhancer</h1>
+
+    <p>Create professional AI image prompts</p>
+
+    <div class="controls">
+
+        <input
+            type="text"
+            id="prompt"
+            placeholder="Enter object (dragon, car, castle...)">
+
+        <select id="style">
+
+            <option>Photorealistic</option>
+            <option>Cinematic</option>
+            <option>Anime</option>
+            <option>Fantasy</option>
+            <option>Cyberpunk</option>
+            <option>Watercolor</option>
+            <option>Oil Painting</option>
+            <option>Pixar 3D</option>
+            <option>Steampunk</option>
+            <option>Surreal Dreamscape</option>
+
+        </select>
+
+        <button onclick="generatePrompt()">
+            Generate
+        </button>
+
+    </div>
+
+    <div id="output"></div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
