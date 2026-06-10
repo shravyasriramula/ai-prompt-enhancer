@@ -4,6 +4,11 @@ from config import GROK_API_KEY
 
 app = Flask(__name__)
 
+if not GROK_API_KEY:
+    print("WARNING: GROK_API_KEY not loaded from environment!")
+else:
+    print(f"API Key loaded: {GROK_API_KEY[:10]}...")
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -13,6 +18,12 @@ def home():
 def generate():
 
     try:
+        
+        if not GROK_API_KEY:
+            return jsonify({
+                "success": False,
+                "error": "GROK_API_KEY not configured"
+            })
 
         data = request.get_json()
 
