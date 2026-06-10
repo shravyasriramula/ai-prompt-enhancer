@@ -59,7 +59,7 @@ Return only the prompt.
             "https://api.groq.com/openai/v1/chat/completions",
             headers=headers,
             json={
-                "model": "llama-3.1-70b-versatile",
+                "model": "llama-3.3-70b-specdec",
                 "messages": [
                     {"role": "user", "content": prompt}
                 ],
