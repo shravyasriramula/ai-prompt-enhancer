@@ -59,7 +59,7 @@ Return only the prompt.
             "https://api.groq.com/openai/v1/chat/completions",
             headers=headers,
             json={
-                "model": "mixtral-8x7b-32768",
+                "model": "llama-3.1-70b-versatile",
                 "messages": [
                     {"role": "user", "content": prompt}
                 ],
@@ -68,7 +68,16 @@ Return only the prompt.
             }
         )
 
-        result = response.json()["choices"][0]["message"]["content"]
+        response_data = response.json()
+        
+        if "choices" not in response_data:
+            print(f"Unexpected response: {response_data}")
+            return jsonify({
+                "success": False,
+                "error": f"API Error: {response_data}"
+            })
+
+        result = response_data["choices"][0]["message"]["content"]
 
         return jsonify({
             "success": True,
