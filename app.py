@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import requests
+from config import GROK_API_KEY
 
 app = Flask(__name__)
 
@@ -49,16 +50,25 @@ Length:
 Return only the prompt.
 """
 
+        headers = {
+            "Authorization": f"Bearer {GROK_API_KEY}",
+            "Content-Type": "application/json"
+        }
+
         response = requests.post(
-            "http://localhost:11434/api/generate",
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers=headers,
             json={
-                "model": "llama3",
-                "prompt": prompt,
-                "stream": False
+                "model": "mixtral-8x7b-32768",
+                "messages": [
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.7,
+                "max_tokens": 500
             }
         )
 
-        result = response.json()["response"]
+        result = response.json()["choices"][0]["message"]["content"]
 
         return jsonify({
             "success": True,
